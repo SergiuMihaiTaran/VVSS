@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
-public abstract class AbstractRepository<ID, E> implements Repository<ID, E> {
+public abstract class AbstractRepository<ID, E> implements IRepository<ID, E> {
 
     protected Map<ID, E> entities = new HashMap<>();
 

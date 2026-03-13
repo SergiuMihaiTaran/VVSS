@@ -2,7 +2,7 @@ package drinkshop.repository;
 
 import java.util.List;
 
-public interface Repository<ID, E> {
+public interface IRepository<ID, E> {
 
     E findOne(ID id);
 

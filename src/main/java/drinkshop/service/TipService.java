@@ -2,19 +2,19 @@ package drinkshop.service;
 
 import drinkshop.domain.Product;
 import drinkshop.domain.Tip;
-import drinkshop.repository.Repository;
+import drinkshop.repository.IRepository;
 import drinkshop.service.validator.Validator;
 
 import java.util.List;
 
 public class TipService {
 
-    private final Repository<Integer, Tip> tipRepo;
-    private final Repository<Integer, Product> productRepo;
+    private final IRepository<Integer, Tip> tipRepo;
+    private final IRepository<Integer, Product> productRepo;
     private final Validator<Tip> validator;
 
-    public TipService(Repository<Integer, Tip> tipRepo,
-                      Repository<Integer, Product> productRepo,
+    public TipService(IRepository<Integer, Tip> tipRepo,
+                      IRepository<Integer, Product> productRepo,
                       Validator<Tip> validator) {
         this.tipRepo = tipRepo;
         this.productRepo = productRepo;

@@ -1,7 +1,7 @@
 package drinkshop.ui;
 
 import drinkshop.domain.*;
-import drinkshop.repository.Repository;
+import drinkshop.repository.IRepository;
 import drinkshop.repository.file.*;
 import drinkshop.service.DrinkShopService;
 import javafx.application.Application;
@@ -14,13 +14,13 @@ public class DrinkShopApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Repository<Integer, Categorie> categorieRepo = new FileCategorieRepository("data/categorii.txt");
-        Repository<Integer, Tip> tipRepo = new FileTipRepository("data/tipuri.txt");
+        IRepository<Integer, Categorie> categorieRepo = new FileCategorieRepository("data/categorii.txt");
+        IRepository<Integer, Tip> tipRepo = new FileTipRepository("data/tipuri.txt");
 
-        Repository<Integer, Product> productRepo = new FileProductRepository("data/products.txt", categorieRepo, tipRepo);
-        Repository<Integer, Order> orderRepo = new FileOrderRepository("data/orders.txt", productRepo);
-        Repository<Integer, Reteta> retetaRepo = new FileRetetaRepository("data/retete.txt");
-        Repository<Integer, Stoc> stocRepo = new FileStocRepository("data/stocuri.txt");
+        IRepository<Integer, Product> productRepo = new FileProductRepository("data/products.txt", categorieRepo, tipRepo);
+        IRepository<Integer, Order> orderRepo = new FileOrderRepository("data/orders.txt", productRepo);
+        IRepository<Integer, Reteta> retetaRepo = new FileRetetaRepository("data/retete.txt");
+        IRepository<Integer, Stoc> stocRepo = new FileStocRepository("data/stocuri.txt");
 
 
         DrinkShopService service = new DrinkShopService(

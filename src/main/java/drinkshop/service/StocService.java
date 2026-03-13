@@ -3,18 +3,18 @@ package drinkshop.service;
 import drinkshop.domain.IngredientReteta;
 import drinkshop.domain.Reteta;
 import drinkshop.domain.Stoc;
-import drinkshop.repository.Repository;
+import drinkshop.repository.IRepository;
 import drinkshop.service.validator.Validator;
 
 import java.util.List;
 
 public class StocService {
 
-    private final Repository<Integer, Stoc> stocRepo;
+    private final IRepository<Integer, Stoc> stocRepo;
     private final Validator<Stoc> stocValidator;
     private final Validator<Reteta> retetaValidator;
 
-    public StocService(Repository<Integer, Stoc> stocRepo,
+    public StocService(IRepository<Integer, Stoc> stocRepo,
                        Validator<Stoc> stocValidator,
                        Validator<Reteta> retetaValidator) {
         this.stocRepo = stocRepo;

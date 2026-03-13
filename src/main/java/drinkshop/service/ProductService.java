@@ -3,7 +3,7 @@ package drinkshop.service;
 import drinkshop.domain.Categorie;
 import drinkshop.domain.Product;
 import drinkshop.domain.Tip;
-import drinkshop.repository.Repository;
+import drinkshop.repository.IRepository;
 import drinkshop.service.validator.Validator;
 
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 
 public class ProductService {
 
-    private final Repository<Integer, Product> productRepo;
+    private final IRepository<Integer, Product> productRepo;
     private final Validator<Product> validator;
 
-    public ProductService(Repository<Integer, Product> productRepo,
+    public ProductService(IRepository<Integer, Product> productRepo,
                           Validator<Product> validator) {
         this.productRepo = productRepo;
         this.validator = validator;

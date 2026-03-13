@@ -3,20 +3,20 @@ package drinkshop.service;
 import drinkshop.domain.Order;
 import drinkshop.domain.OrderItem;
 import drinkshop.domain.Product;
-import drinkshop.repository.Repository;
+import drinkshop.repository.IRepository;
 import drinkshop.service.validator.Validator;
 
 import java.util.List;
 
 public class OrderService {
 
-    private final Repository<Integer, Order> orderRepo;
-    private final Repository<Integer, Product> productRepo;
+    private final IRepository<Integer, Order> orderRepo;
+    private final IRepository<Integer, Product> productRepo;
     private final Validator<Order> orderValidator;
     private final Validator<OrderItem> orderItemValidator;
 
-    public OrderService(Repository<Integer, Order> orderRepo,
-                        Repository<Integer, Product> productRepo,
+    public OrderService(IRepository<Integer, Order> orderRepo,
+                        IRepository<Integer, Product> productRepo,
                         Validator<Order> orderValidator,
                         Validator<OrderItem> orderItemValidator) {
         this.orderRepo = orderRepo;

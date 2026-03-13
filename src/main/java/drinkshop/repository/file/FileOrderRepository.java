@@ -3,16 +3,16 @@ package drinkshop.repository.file;
 import drinkshop.domain.Order;
 import drinkshop.domain.OrderItem;
 import drinkshop.domain.Product;
-import drinkshop.repository.Repository;
+import drinkshop.repository.IRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileOrderRepository extends FileAbstractRepository<Integer, Order> {
 
-    private final Repository<Integer, Product> productRepository;
+    private final IRepository<Integer, Product> productRepository;
 
-    public FileOrderRepository(String fileName, Repository<Integer, Product> productRepository) {
+    public FileOrderRepository(String fileName, IRepository<Integer, Product> productRepository) {
         super(fileName);
         this.productRepository = productRepository;
         loadFromFile();

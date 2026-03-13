@@ -3,8 +3,7 @@ package drinkshop.service;
 import drinkshop.domain.*;
 import drinkshop.export.CsvExporter;
 import drinkshop.receipt.ReceiptGenerator;
-import drinkshop.reports.DailyReportService;
-import drinkshop.repository.Repository;
+import drinkshop.repository.IRepository;
 import drinkshop.service.validator.*;
 
 import java.util.ArrayList;
@@ -23,12 +22,12 @@ public class DrinkShopService {
     private final List<Order> ordersDinSesiune = new ArrayList<>();
 
     public DrinkShopService(
-            Repository<Integer, Product> productRepo,
-            Repository<Integer, Order> orderRepo,
-            Repository<Integer, Reteta> retetaRepo,
-            Repository<Integer, Stoc> stocRepo,
-            Repository<Integer, Categorie> categorieRepo,
-            Repository<Integer, Tip> tipRepo
+            IRepository<Integer, Product> productRepo,
+            IRepository<Integer, Order> orderRepo,
+            IRepository<Integer, Reteta> retetaRepo,
+            IRepository<Integer, Stoc> stocRepo,
+            IRepository<Integer, Categorie> categorieRepo,
+            IRepository<Integer, Tip> tipRepo
     ) {
         this.productService = new ProductService(productRepo, new ProductValidator());
 

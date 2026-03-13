@@ -2,19 +2,19 @@ package drinkshop.service;
 
 import drinkshop.domain.Categorie;
 import drinkshop.domain.Product;
-import drinkshop.repository.Repository;
+import drinkshop.repository.IRepository;
 import drinkshop.service.validator.Validator;
 
 import java.util.List;
 
 public class CategorieService {
 
-    private final Repository<Integer, Categorie> categorieRepo;
-    private final Repository<Integer, Product> productRepo;
+    private final IRepository<Integer, Categorie> categorieRepo;
+    private final IRepository<Integer, Product> productRepo;
     private final Validator<Categorie> validator;
 
-    public CategorieService(Repository<Integer, Categorie> categorieRepo,
-                            Repository<Integer, Product> productRepo,
+    public CategorieService(IRepository<Integer, Categorie> categorieRepo,
+                            IRepository<Integer, Product> productRepo,
                             Validator<Categorie> validator) {
         this.categorieRepo = categorieRepo;
         this.productRepo = productRepo;

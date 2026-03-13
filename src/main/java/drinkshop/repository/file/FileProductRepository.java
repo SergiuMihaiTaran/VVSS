@@ -3,17 +3,17 @@ package drinkshop.repository.file;
 import drinkshop.domain.Categorie;
 import drinkshop.domain.Product;
 import drinkshop.domain.Tip;
-import drinkshop.repository.Repository;
+import drinkshop.repository.IRepository;
 
 public class FileProductRepository
         extends FileAbstractRepository<Integer, Product> {
 
-    private final Repository<Integer, Categorie> categorieRepo;
-    private final Repository<Integer, Tip> tipRepo;
+    private final IRepository<Integer, Categorie> categorieRepo;
+    private final IRepository<Integer, Tip> tipRepo;
 
     public FileProductRepository(String fileName,
-                                 Repository<Integer, Categorie> categorieRepo,
-                                 Repository<Integer, Tip> tipRepo) {
+                                 IRepository<Integer, Categorie> categorieRepo,
+                                 IRepository<Integer, Tip> tipRepo) {
         super(fileName);
         this.categorieRepo = categorieRepo;
         this.tipRepo = tipRepo;

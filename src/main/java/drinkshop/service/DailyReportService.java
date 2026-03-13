@@ -1,4 +1,4 @@
-package drinkshop.reports;
+package drinkshop.service;
 
 import drinkshop.domain.Order;
 

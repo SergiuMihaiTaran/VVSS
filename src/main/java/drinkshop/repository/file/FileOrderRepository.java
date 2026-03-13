@@ -8,10 +8,9 @@ import drinkshop.repository.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileOrderRepository
-        extends FileAbstractRepository<Integer, Order> {
+public class FileOrderRepository extends FileAbstractRepository<Integer, Order> {
 
-    private Repository<Integer, Product> productRepository;
+    private final Repository<Integer, Product> productRepository;
 
     public FileOrderRepository(String fileName, Repository<Integer, Product> productRepository) {
         super(fileName);
@@ -26,7 +25,6 @@ public class FileOrderRepository
 
     @Override
     protected Order extractEntity(String line) {
-
         // Format: id,productId:qty|productId:qty,total
         String[] parts = line.split(",");
 
@@ -51,12 +49,10 @@ public class FileOrderRepository
 
     @Override
     protected String createEntityAsString(Order entity) {
-
         StringBuilder sb = new StringBuilder();
 
         for (OrderItem item : entity.getItems()) {
-
-            if (sb.length() > 0) {
+            if (!sb.isEmpty()) {
                 sb.append("|");
             }
 
@@ -65,8 +61,6 @@ public class FileOrderRepository
                     .append(item.getQuantity());
         }
 
-        return entity.getId() + "," +
-                sb + "," +
-                entity.getTotalPrice();
+        return entity.getId() + "," + sb + "," + entity.getTotalPrice();
     }
 }

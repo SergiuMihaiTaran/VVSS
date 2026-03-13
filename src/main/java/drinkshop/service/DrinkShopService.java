@@ -5,7 +5,9 @@ import drinkshop.export.CsvExporter;
 import drinkshop.receipt.ReceiptGenerator;
 import drinkshop.reports.DailyReportService;
 import drinkshop.repository.Repository;
+import drinkshop.service.validator.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DrinkShopService {
@@ -14,19 +16,45 @@ public class DrinkShopService {
     private final OrderService orderService;
     private final RetetaService retetaService;
     private final StocService stocService;
+    private final CategorieService categorieService;
+    private final TipService tipService;
     private final DailyReportService report;
+
+    private final List<Order> ordersDinSesiune = new ArrayList<>();
 
     public DrinkShopService(
             Repository<Integer, Product> productRepo,
             Repository<Integer, Order> orderRepo,
             Repository<Integer, Reteta> retetaRepo,
-            Repository<Integer, Stoc> stocService
+            Repository<Integer, Stoc> stocRepo,
+            Repository<Integer, Categorie> categorieRepo,
+            Repository<Integer, Tip> tipRepo
     ) {
-        this.productService = new ProductService(productRepo);
-        this.orderService = new OrderService(orderRepo, productRepo);
-        this.retetaService = new RetetaService(retetaRepo);
-        this.stocService = new StocService(stocService);
-        this.report = new DailyReportService(orderRepo);
+        this.productService = new ProductService(productRepo, new ProductValidator());
+
+        this.orderService = new OrderService(
+                orderRepo,
+                productRepo,
+                new OrderValidator(),
+                new OrderItemValidator()
+        );
+
+        this.retetaService = new RetetaService(retetaRepo, new RetetaValidator());
+        this.stocService = new StocService(stocRepo, new StocValidator(), new RetetaValidator());
+
+        this.categorieService = new CategorieService(
+                categorieRepo,
+                productRepo,
+                new CategorieValidator()
+        );
+
+        this.tipService = new TipService(
+                tipRepo,
+                productRepo,
+                new TipValidator()
+        );
+
+        this.report = new DailyReportService();
     }
 
     // ---------- PRODUCT ----------
@@ -34,7 +62,7 @@ public class DrinkShopService {
         productService.addProduct(p);
     }
 
-    public void updateProduct(int id, String name, double price, CategorieBautura categorie, TipBautura tip) {
+    public void updateProduct(int id, String name, double price, Categorie categorie, Tip tip) {
         productService.updateProduct(id, name, price, categorie, tip);
     }
 
@@ -46,17 +74,18 @@ public class DrinkShopService {
         return productService.getAllProducts();
     }
 
-    public List<Product> filtreazaDupaCategorie(CategorieBautura categorie) {
+    public List<Product> filtreazaDupaCategorie(Categorie categorie) {
         return productService.filterByCategorie(categorie);
     }
 
-    public List<Product> filtreazaDupaTip(TipBautura tip) {
+    public List<Product> filtreazaDupaTip(Tip tip) {
         return productService.filterByTip(tip);
     }
 
     // ---------- ORDER ----------
     public void addOrder(Order o) {
         orderService.addOrder(o);
+        ordersDinSesiune.add(o);
     }
 
     public List<Order> getAllOrders() {
@@ -72,7 +101,7 @@ public class DrinkShopService {
     }
 
     public double getDailyRevenue() {
-        return report.getTotalRevenue();
+        return report.getTotalRevenue(ordersDinSesiune);
     }
 
     public void exportCsv(String path) {
@@ -81,11 +110,20 @@ public class DrinkShopService {
 
     // ---------- STOCK + RECIPE ----------
     public void comandaProdus(Product produs) {
+        if (produs == null) {
+            throw new IllegalArgumentException("Produsul nu poate fi null.");
+        }
+
         Reteta reteta = retetaService.findById(produs.getId());
+
+        if (reteta == null) {
+            throw new IllegalStateException("Nu exista reteta pentru produsul: " + produs.getNume());
+        }
 
         if (!stocService.areSuficient(reteta)) {
             throw new IllegalStateException("Stoc insuficient pentru produsul: " + produs.getNume());
         }
+
         stocService.consuma(reteta);
     }
 
@@ -103,5 +141,56 @@ public class DrinkShopService {
 
     public void deleteReteta(int id) {
         retetaService.deleteReteta(id);
+    }
+
+    public List<Stoc> getAllStocuri() {
+        return stocService.getAll();
+    }
+
+    public boolean ingredientExistaInStoc(String ingredient) {
+        return stocService.getAll().stream()
+                .anyMatch(s -> s.getIngredient().equalsIgnoreCase(ingredient));
+    }
+
+    // ---------- CATEGORII ----------
+    public void addCategorie(Categorie categorie) {
+        categorieService.addCategorie(categorie);
+    }
+
+    public void updateCategorie(Categorie categorie) {
+        categorieService.updateCategorie(categorie);
+    }
+
+    public void deleteCategorie(int id) {
+        categorieService.deleteCategorie(id);
+    }
+
+    public List<Categorie> getAllCategorii() {
+        return categorieService.getAllCategorii();
+    }
+
+    public Categorie findCategorieById(int id) {
+        return categorieService.findById(id);
+    }
+
+    // ---------- TIPURI ----------
+    public void addTip(Tip tip) {
+        tipService.addTip(tip);
+    }
+
+    public void updateTip(Tip tip) {
+        tipService.updateTip(tip);
+    }
+
+    public void deleteTip(int id) {
+        tipService.deleteTip(id);
+    }
+
+    public List<Tip> getAllTipuri() {
+        return tipService.getAllTipuri();
+    }
+
+    public Tip findTipById(int id) {
+        return tipService.findById(id);
     }
 }

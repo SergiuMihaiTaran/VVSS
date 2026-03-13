@@ -1,7 +1,10 @@
 package drinkshop.service;
 
-import drinkshop.domain.*;
+import drinkshop.domain.Categorie;
+import drinkshop.domain.Product;
+import drinkshop.domain.Tip;
 import drinkshop.repository.Repository;
+import drinkshop.service.validator.Validator;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,32 +12,41 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final Repository<Integer, Product> productRepo;
+    private final Validator<Product> validator;
 
-    public ProductService(Repository<Integer, Product> productRepo) {
+    public ProductService(Repository<Integer, Product> productRepo,
+                          Validator<Product> validator) {
         this.productRepo = productRepo;
+        this.validator = validator;
     }
 
     public void addProduct(Product p) {
+        validator.validate(p);
         productRepo.save(p);
     }
 
-    public void updateProduct(int id, String name, double price, CategorieBautura categorie, TipBautura tip) {
+    public void updateProduct(int id, String name, double price,
+                              Categorie categorie, Tip tip) {
+
+        Product existing = productRepo.findOne(id);
+        if (existing == null) {
+            throw new IllegalArgumentException("Produsul cu ID " + id + " nu exista.");
+        }
+
         Product updated = new Product(id, name, price, categorie, tip);
+        validator.validate(updated);
         productRepo.update(updated);
     }
 
     public void deleteProduct(int id) {
+        Product existing = productRepo.findOne(id);
+        if (existing == null) {
+            throw new IllegalArgumentException("Produsul cu ID " + id + " nu exista.");
+        }
         productRepo.delete(id);
     }
 
     public List<Product> getAllProducts() {
-//        Iterable<Product> it=productRepo.findAll();
-//        ArrayList<Product> products=new ArrayList<>();
-//        it.forEach(products::add);
-//        return products;
-
-//        return StreamSupport.stream(productRepo.findAll().spliterator(), false)
-//                    .collect(Collectors.toList());
         return productRepo.findAll();
     }
 
@@ -42,17 +54,23 @@ public class ProductService {
         return productRepo.findOne(id);
     }
 
-    public List<Product> filterByCategorie(CategorieBautura categorie) {
-        if (categorie == CategorieBautura.ALL) return getAllProducts();
+    public List<Product> filterByCategorie(Categorie categorie) {
+        if (categorie == null || "ALL".equalsIgnoreCase(categorie.getNume())) {
+            return getAllProducts();
+        }
+
         return getAllProducts().stream()
-                .filter(p -> p.getCategorie() == categorie)
+                .filter(p -> p.getCategorie() != null && p.getCategorie().getId() == categorie.getId())
                 .collect(Collectors.toList());
     }
 
-    public List<Product> filterByTip(TipBautura tip) {
-        if (tip == TipBautura.ALL) return getAllProducts();
+    public List<Product> filterByTip(Tip tip) {
+        if (tip == null || "ALL".equalsIgnoreCase(tip.getNume())) {
+            return getAllProducts();
+        }
+
         return getAllProducts().stream()
-                .filter(p -> p.getTip() == tip)
+                .filter(p -> p.getTip() != null && p.getTip().getId() == tip.getId())
                 .collect(Collectors.toList());
     }
 }

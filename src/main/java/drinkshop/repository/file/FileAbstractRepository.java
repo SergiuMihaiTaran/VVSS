@@ -4,25 +4,21 @@ import drinkshop.repository.AbstractRepository;
 
 import java.io.*;
 
-public abstract class FileAbstractRepository<ID, E>
-        extends AbstractRepository<ID, E> {
+public abstract class FileAbstractRepository<ID, E> extends AbstractRepository<ID, E> {
 
     protected String fileName;
 
-    public FileAbstractRepository(String fileName) {
+    protected FileAbstractRepository(String fileName) {
         this.fileName = fileName;
-        //loadFromFile();
     }
 
     protected void loadFromFile() {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-
             String line;
             while ((line = br.readLine()) != null) {
                 E entity = extractEntity(line);
                 super.save(entity);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,12 +26,10 @@ public abstract class FileAbstractRepository<ID, E>
 
     private void writeToFile() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))) {
-
             for (E entity : entities.values()) {
                 bw.write(createEntityAsString(entity));
                 bw.newLine();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }

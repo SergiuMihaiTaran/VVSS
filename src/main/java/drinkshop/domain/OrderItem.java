@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class OrderItem implements Serializable {
 
-    private Product product;
+    private transient Product product;
     private int quantity;
 
     public OrderItem(Product product, int quantity) {
@@ -28,15 +28,15 @@ public class OrderItem implements Serializable {
         this.quantity = quantity;
     }
 
+    public double getTotal() {
+        return product.getPret() * quantity;
+    }
+
     @Override
     public String toString() {
         return "OrderItem{" +
                 "product=" + product +
                 ", quantity=" + quantity +
                 '}';
-    }
-
-    public double getTotal() {
-        return product.getPret() * quantity;
     }
 }

@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
-public abstract class AbstractRepository<ID, E>
-        implements Repository<ID, E> {
+public abstract class AbstractRepository<ID, E> implements Repository<ID, E> {
 
     protected Map<ID, E> entities = new HashMap<>();
 
@@ -17,9 +16,7 @@ public abstract class AbstractRepository<ID, E>
 
     @Override
     public List<E> findAll() {
-        return (List<E>)StreamSupport.stream(entities.values().spliterator(), false).toList();
-//                    .collect(Collectors.toList());
-        // return (List<E>) entities.values();
+        return StreamSupport.stream(entities.values().spliterator(), false).toList();
     }
 
     @Override

@@ -9,12 +9,37 @@ import java.util.List;
 public class ReceiptGenerator {
     public static String generate(Order o, List<Product> products) {
         StringBuilder sb = new StringBuilder();
-        sb.append("===== BON FISCAL =====\n").append("Comanda #").append(o.getId()).append("\n");
+        sb.append("===== BON FISCAL =====\n")
+                .append("Comanda #")
+                .append(o.getId())
+                .append("\n");
+
         for (OrderItem i : o.getItems()) {
-            Product p = products.stream().filter((p1)->i.getProduct().getId()==p1.getId()).toList().get(0);
-            sb.append(p.getNume()+": ").append(p.getPret()).append(" x ").append(i.getQuantity()).append(" = ").append(i.getTotal()).append(" RON\n");
+            Product p = products.stream()
+                    .filter(p1 -> i.getProduct().getId() == p1.getId())
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalStateException(
+                            "Produs inexistent pentru ID: " + i.getProduct().getId()
+                    ));
+
+            double subtotal = p.getPret() * i.getQuantity();
+
+            sb.append(p.getNume())
+                    .append(": ")
+                    .append(String.format("%.2f", p.getPret()))
+                    .append(" x ")
+                    .append(i.getQuantity())
+                    .append(" = ")
+                    .append(String.format("%.2f", subtotal))
+                    .append(" RON\n");
         }
-        sb.append("---------------------\nTOTAL: ").append(o.getTotalPrice()).append(" RON\n=====================\n");
+
+        sb.append("---------------------\n")
+                .append("TOTAL: ")
+                .append(String.format("%.2f", o.getTotalPrice()))
+                .append(" RON\n")
+                .append("=====================\n");
+
         return sb.toString();
     }
 }

@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>testspec Proiect237 - toir3644_BBT</title>
+<link type="text/css" rel="stylesheet" href="https://www.scs.ubbcluj.ro/testlink/gui/themes/default/css/tl_documents.css" />
+<style type="text/css" media="print">.notprintable { display:none;}</style>
+</head>
+<body>
+<div>
+<div style="float:right;">TestLink Community [configure $tlCfg-&gt;document_generator-&gt;company_name]</div>
+<div>&nbsp;</div><hr />
+<p style="text-align: center;"><img alt="TestLink logo" title="configure using $tlCfg->document_generator->company_logo"  width= height= src="https://www.scs.ubbcluj.ro/testlink/gui/themes/default/images/tl-logo-transparent-25.png" /></p></div>
+<div class="doc_title"><p>Test Specification</p></div>
+<div class="doc_title" style="text-align:left;margin: auto;"><p>Test Project: Proiect237<br/>Test Suite: Proiect237 - toir3644_BBT</p></div>
+<div class="summary"><p id="printedby">Printed by TestLink on 23/03/2026</p></div>
+<div class="pagefooter" id="copyright">2012 &copy; TestLink Community</div>
+<h1 class="general" style="page-break-before: always">Table Of Contents</h1><div class="toc"><p style="padding-left: 20px;"><b><a href="#toc_1">1.toir3644_BBT</a></b></p>
+<p style="padding-left: 45px;"><a href="#toc_tc28461">P237-6: ECP_Valid_Update_Produs</a></p><p style="padding-left: 45px;"><a href="#toc_tc28463">P237-7: ECP_Invalid_Name</a></p><p style="padding-left: 45px;"><a href="#toc_tc28465">P237-8: BVA_Valid_Price</a></p><p style="padding-left: 45px;"><a href="#toc_tc28468">P237-9: BVA_Invalid_Price</a></p></div><h1 class="doclevel" >Scope</h1>
+<div class="txtlevel"><p>Proiect de testare pentru studentii din grupa 237.</p></div>
+ <br/><a name='toc_1'></a>
+<h1 class='doclevel'>1.Test Suite : toir3644_BBT</h1>
+<div><p>Se testeaza modificarea unui produs</p>
+</div><a name="toc_tc28461"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case P237-6: ECP_Valid_Update_Produs&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">toir3644</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Se verifica actualizarea unui produs existent cu date valide.</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>selected product: exists</p>
+
+<p>name: string, not null and not empty</p>
+
+<p>price: double, price &gt;0</p>
+
+<p>categorie: valid, categorie != null and categorie != ALL</p>
+
+<p>tip: valid, tip != null and tip != ALL</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Automated</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >ProductServiceTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >testUpdateProduct_ECP_Valid</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">toir3644_F01:  ModificareProdus [Version : 1]<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+<a name="toc_tc28463"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case P237-7: ECP_Invalid_Name&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">toir3644</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Se verifica actualizarea unui produs existent cu nume invalid. Operatia trebuie sa esueze</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>selected product: exists</p>
+
+<p>name: string, empty or null</p>
+
+<p>price: double, price &gt; 0</p>
+
+<p>categorie: valid, categorie != null and categorie != ALL</p>
+
+<p>tip: valid, tip != null and tip != ALL</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Automated</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >ProductServiceTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >testUpdateProduct_ECP_Invalid_Name</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">toir3644_F01:  ModificareProdus [Version : 1]<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+<a name="toc_tc28465"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case P237-8: BVA_Valid_Price&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">toir3644</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Se verifica actualizarea unui produs existent cu valoarea minima valida pentru pret.</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>selected product: exists</p>
+
+<p>name: string, not null and not empty</p>
+
+<p>price: double, price = 0.01</p>
+
+<p>categorie: valid, categorie != null and categorie != ALL</p>
+
+<p>tip: valid, tip != null and tip != ALL</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Automated</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >ProductServiceTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >testUpdateProduct_BVA_Valid_Price</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">toir3644_F01:  ModificareProdus [Version : 1]<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+<a name="toc_tc28468"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case P237-9: BVA_Invalid_Price&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">toir3644</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Se verifica actualizarea unui produs existent cu valoare de frontiera invalida pentru pret. Operatia trebuie sa esueze</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>selected product: exists</p>
+
+<p>name: string, not null and not empty</p>
+
+<p>price: double, price = 0</p>
+
+<p>categorie: valid, categorie != null and categorie != ALL</p>
+
+<p>tip: valid, tip != null and tip != ALL</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Automated</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >ProductServiceTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >testUpdateProduct_BVA_Invalid_Price</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">toir3644_F01:  ModificareProdus [Version : 1]<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+
+</body>
+</html>

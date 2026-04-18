@@ -64,39 +64,63 @@ public class StocService {
     public void consuma(Reteta reteta) {
         retetaValidator.validate(reteta);
 
+        if (reteta.getIngrediente() == null || reteta.getIngrediente().isEmpty()) {
+            throw new IllegalArgumentException("Reteta nu contine ingrediente.");
+        }
+
         if (!poateConsumaFaraSaScadaSubMinim(reteta)) {
             throw new IllegalStateException("Nu se poate consuma: stocul ar scadea sub stocul minim.");
         }
 
         for (IngredientReteta e : reteta.getIngrediente()) {
-            String ingredient = e.getDenumire();
-            double necesar = e.getCantitate();
-
-            List<Stoc> ingredienteStoc = stocRepo.findAll().stream()
-                    .filter(s -> s.getIngredient().equalsIgnoreCase(ingredient))
-                    .toList();
-
-            double ramas = necesar;
-
-            for (Stoc s : ingredienteStoc) {
-                if (ramas <= 0) break;
-
-                double maximDeConsum = s.getCantitate() - s.getStocMinim();
-                if (maximDeConsum <= 0) {
-                    continue;
-                }
-
-                double deScazut = Math.min(maximDeConsum, ramas);
-                s.setCantitate(s.getCantitate() - deScazut);
-                ramas -= deScazut;
-
-                stocValidator.validate(s);
-                stocRepo.update(s);
+            if (e.getCantitate() <= 0) {
+                throw new IllegalArgumentException("Cantitatea necesara trebuie sa fie pozitiva.");
             }
 
-            if (ramas > 0) {
-                throw new IllegalStateException("Nu exista suficient stoc disponibil fara a cobori sub minim pentru ingredientul: " + ingredient);
+            if (e.getDenumire() == null || e.getDenumire().isBlank()) {
+                throw new IllegalArgumentException("Denumirea ingredientului este invalida.");
             }
+
+            consumaIngredient(e.getDenumire(), e.getCantitate());
+        }
+
+
+    }
+
+
+    void consumaIngredient(String ingredient, double necesar) {
+        List<Stoc> ingredienteStoc = stocRepo.findAll().stream()
+                .filter(s -> s.getIngredient().equalsIgnoreCase(ingredient))
+                .toList();
+
+        if (ingredienteStoc.isEmpty()) {
+            throw new IllegalStateException("Ingredientul nu exista in stoc: " + ingredient);
+        }
+
+        double ramas = necesar;
+
+        for (Stoc s : ingredienteStoc) {
+            if (ramas <= 0) {
+                break;
+            }
+
+            double maximDeConsum = s.getCantitate() - s.getStocMinim();
+            if (maximDeConsum <= 0) {
+                continue;
+            }
+
+            double deScazut = Math.min(maximDeConsum, ramas);
+            s.setCantitate(s.getCantitate() - deScazut);
+            ramas -= deScazut;
+
+            stocValidator.validate(s);
+            stocRepo.update(s);
+        }
+
+        if (ramas > 0) {
+            throw new IllegalStateException(
+                    "Nu exista suficient stoc disponibil fara a cobori sub minim pentru ingredientul: " + ingredient
+            );
         }
     }
 

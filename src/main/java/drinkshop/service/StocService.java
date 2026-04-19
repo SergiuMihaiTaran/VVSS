@@ -62,10 +62,27 @@ public class StocService {
     }
 
     public void consuma(Reteta reteta) {
-        retetaValidator.validate(reteta);
+        if (reteta == null) {
+            throw new IllegalArgumentException("Reteta nu poate fi null.");
+        }
 
         if (reteta.getIngrediente() == null || reteta.getIngrediente().isEmpty()) {
             throw new IllegalArgumentException("Reteta nu contine ingrediente.");
+        }
+
+        for (IngredientReteta e : reteta.getIngrediente()) {
+
+            if (e.getCantitate() <= 0) {
+                throw new IllegalArgumentException("Cantitatea necesara trebuie sa fie pozitiva.");
+            }
+
+            if (e.getDenumire() == null) {
+                throw new IllegalArgumentException("Denumirea ingredientului este null.");
+            }
+
+            if (e.getDenumire().isBlank()) {
+                throw new IllegalArgumentException("Denumirea ingredientului este goala.");
+            }
         }
 
         if (!poateConsumaFaraSaScadaSubMinim(reteta)) {
@@ -73,18 +90,8 @@ public class StocService {
         }
 
         for (IngredientReteta e : reteta.getIngrediente()) {
-            if (e.getCantitate() <= 0) {
-                throw new IllegalArgumentException("Cantitatea necesara trebuie sa fie pozitiva.");
-            }
-
-            if (e.getDenumire() == null || e.getDenumire().isBlank()) {
-                throw new IllegalArgumentException("Denumirea ingredientului este invalida.");
-            }
-
             consumaIngredient(e.getDenumire(), e.getCantitate());
         }
-
-
     }
 
 

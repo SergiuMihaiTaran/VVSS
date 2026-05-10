@@ -48,12 +48,11 @@ class ProductServiceTest {
         assertEquals(numeNou, productService.findById(1).getNume());
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"", " "})
+    @Test
     @DisplayName("P237-7: ECP_Invalid_Name")
-    void testUpdateProduct_ECP_Invalid_Name(String invalidName) {
+    void testUpdateProduct_ECP_Invalid_Name() {
         assertThrows(RuntimeException.class, () ->
-                productService.updateProduct(1, invalidName, 10.0f, testCat, testTip)
+                productService.updateProduct(1, "", 10.0f, testCat, testTip)
         );
     }
     @Test

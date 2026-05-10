@@ -7,6 +7,7 @@ import drinkshop.repository.IRepository;
 import drinkshop.service.validator.Validator;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StocService {
 
@@ -98,7 +99,7 @@ public class StocService {
     void consumaIngredient(String ingredient, double necesar) {
         List<Stoc> ingredienteStoc = stocRepo.findAll().stream()
                 .filter(s -> s.getIngredient().equalsIgnoreCase(ingredient))
-                .toList();
+                .collect(Collectors.toList());
 
         if (ingredienteStoc.isEmpty()) {
             throw new IllegalStateException("Ingredientul nu exista in stoc: " + ingredient);
@@ -140,7 +141,7 @@ public class StocService {
 
             List<Stoc> stocuriIngredient = stocRepo.findAll().stream()
                     .filter(s -> s.getIngredient().equalsIgnoreCase(ingredient))
-                    .toList();
+                    .collect(Collectors.toList());
 
             double disponibil = stocuriIngredient.stream()
                     .mapToDouble(Stoc::getCantitate)

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>testspec Proiect237 - toir3644_IntT</title>
+<link type="text/css" rel="stylesheet" href="https://www.scs.ubbcluj.ro/testlink/gui/themes/default/css/tl_documents.css" />
+<style type="text/css" media="print">.notprintable { display:none;}</style>
+</head>
+<body>
+<div>
+<div style="float:right;">TestLink Community [configure $tlCfg-&gt;document_generator-&gt;company_name]</div>
+<div>&nbsp;</div><hr />
+<p style="text-align: center;"><img alt="TestLink logo" title="configure using $tlCfg->document_generator->company_logo"  width= height= src="https://www.scs.ubbcluj.ro/testlink/gui/themes/default/images/tl-logo-transparent-25.png" /></p></div>
+<div class="doc_title"><p>Test Specification</p></div>
+<div class="doc_title" style="text-align:left;margin: auto;"><p>Test Project: Proiect237<br/>Test Suite: Proiect237 - toir3644_IntT</p></div>
+<div class="summary"><p id="printedby">Printed by TestLink on 10/05/2026</p></div>
+<div class="pagefooter" id="copyright">2012 &copy; TestLink Community</div>
+<h1 class="general" style="page-break-before: always">Table Of Contents</h1><div class="toc"><p style="padding-left: 20px;"><b><a href="#toc_1">1.toir3644_IntT</a></b></p>
+<p style="padding-left: 45px;"><a href="#toc_tc30811">P237-86: Step01_Unit_S_MockV_MockR</a></p><p style="padding-left: 45px;"><a href="#toc_tc30813">P237-87: Step02_Integration_S_V_MockR</a></p><p style="padding-left: 45px;"><a href="#toc_tc30815">P237-88: Step03_Integration_S_V_R</a></p></div><h1 class="doclevel" >Scope</h1>
+<div class="txtlevel"><p>Proiect de testare pentru studentii din grupa 237.</p></div>
+ <br/><a name='toc_1'></a>
+<h1 class='doclevel'>1.Test Suite : toir3644_IntT</h1>
+<div><p>Cazurile de testare pentru strategia de integrare top-down, scenariul V &lt;--- S ---&gt; R, unde:<br />
+E = Categorie<br />
+V = CategorieValidator<br />
+R = FileCategorieRepository / IRepository&lt;Integer, Categorie&gt;<br />
+S = CategorieService</p>
+</div><a name="toc_tc30811"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case P237-86: Step01_Unit_S_MockV_MockR&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">toir3644</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Testare unitara pentru CategorieService. Validator si Repository sunt inlocuite cu obiecte mock&nbsp;</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>Exista o categorie valida. Validatorul si repository-ul sunt configurate ca obiecte mock.</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Automated</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >drinkshop.service.CategorieServiceTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >drinkshop.service.CategorieServiceTest#testAddCategorie_Valid</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">toir3644_F01:  ModificareProdus [Version : 1]<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+<a name="toc_tc30813"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case P237-87: Step02_Integration_S_V_MockR&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">toir3644</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Test de integrare pentru CategorieService cu validatorul real CategorieValidator. Repository-urile sunt obiecte mock.</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>Exista o singura categorie valida. Validatorul real CategorieValidator este integrat cu serviciul, repository-urile sunt mock-uri.</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Automated</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >drinkshop.service.CategorieServiceIntegrationVTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >drinkshop.service.CategorieServiceIntegrationVTest#testAdd_IntegrationWithRealValidator_Success</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">toir3644_F01:  ModificareProdus [Version : 1]<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+<a name="toc_tc30815"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case P237-88: Step03_Integration_S_V_R&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">toir3644</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Test de integrare pentru CategorieService cu validator real si repository-uri reale pe fisiere temporare.</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>Exista fisiere temporare pentru categorii si produse. Sunt folosite CategorieValidator, FileCategorieRepository si FileProductRepository.</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Automated</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >drinkshop.service.CategorieServiceIntegrationRTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >drinkshop.service.CategorieServiceIntegrationRTest#testAdd_FullIntegration_Persistence</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">toir3644_F01:  ModificareProdus [Version : 1]<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+
+</body>
+</html>
